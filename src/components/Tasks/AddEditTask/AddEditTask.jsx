@@ -1,7 +1,9 @@
 import { useFormik } from 'formik'
-import React from 'react'
-
+import React,{useEffect, useState} from 'react'
+import toast from "react-hot-toast";
 import * as yup from 'yup';
+import { addTask, getOneTask, updateTask } from '../../../genericService';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const schema = yup.object().shape({
   title: yup.string().min(4, "Title must be at least 4 characters").required("Title is required"),
@@ -11,7 +13,10 @@ const schema = yup.object().shape({
  
 });
 
-export default function AddTask() {
+export default function AddEditTask() {
+    const [loading,setLoading]=useState(false)
+    const navigate=useNavigate()
+    const {param}=useParams()
     const handelStatusChange=(e)=>{
         formik.setFieldValue("status",e.target.value)
     }
@@ -24,13 +29,60 @@ export default function AddTask() {
         },
         validationSchema:schema,
         onSubmit:(values)=>{
+            setLoading(true)
             console.log("add_task",values)
+            if(param){
+              
+            updateTask(param,values).then((res)=>{
+              return res.data
+          }).then((data)=>{
+              if(data.status){
+                  toast.success(data.message)
+                  navigate("/home")
+              }else{
+                  toast.error(data.message)
+
+              }
+          }).catch((err)=>{
+              toast.error("Error in task updation")
+          }).finally(()=>setLoading(false))
+            }else{
+
+            addTask(values).then((res)=>{
+                return res.data
+            }).then((data)=>{
+                if(data.status){
+                    toast.success(data.message)
+                    navigate("/home")
+                }else{
+                    toast.error(data.message)
+
+                }
+            }).catch((err)=>{
+                toast.error("Error in task addition")
+            }).finally(()=>setLoading(false))
+          }
         }
     })
+
+    useEffect(()=>{
+      getOneTask(param).then((res)=>{
+        return res.data
+      }).then((data)=>{
+        console.log("response",data.response_data)
+        formik.setFieldValue("title",data.response_data.title)
+        formik.setFieldValue("description",data.response_data.description)
+        formik.setFieldValue("due_date",data.response_data.due_date)
+        formik.setFieldValue("status",data.response_data.status)
+        
+      }).catch((err)=>{
+        console.log("err:",err.message)
+      }).finally(()=>setLoading(false))
+    },[param])
   return (
     <div className="container mx-auto ">
       <div className="flex justify-center flex-col items-center border mt-4 mx-auto">
-        <h2 className="font-bold text-lg self-baseline mx-5 underline mt-3">Create Task</h2>
+        <h2 className="font-bold text-lg self-baseline mx-5 underline mt-3">{param?"Edit":"Create"} Task</h2>
         <div className="flex flex-row gap-3  w-full my-5">
           <label className="font-semibold text-[17px] basis-[14%] sm:basis-[14%] md:basis-[6%] lg:basis-[6%] mx-5">
             Title
@@ -86,8 +138,9 @@ export default function AddTask() {
               <input
                 id="default-radio-1"
                 type="radio"
-                value="Active"
+                value={"Active"}
                 name="default-radio"
+                checked={formik.values.status=="Active"?true:false}
                 onChange={handelStatusChange}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
               />
@@ -102,7 +155,8 @@ export default function AddTask() {
               <input
                 id="default-radio-2"
                 type="radio"
-                value="In-Active"
+                value={"In-Active"}
+                checked={formik.values.status=="In-Active"?true:false}
                 onChange={handelStatusChange}
                 name="default-radio"
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
@@ -115,15 +169,14 @@ export default function AddTask() {
               </label>
             </div>
           </div>
-          
           {formik.errors&&formik.touched.status?<div className="text-[#D63301]">{formik.errors.status}</div>:""}
         
           </div>
         </div>
 
         <div className="flex gap-3 self-baseline mx-5 mb-4">
-            <button onClick={formik.handleSubmit} className="px-6 py-2.5 rounded-md bg-[#1c59ba] text-white font-bold hover:bg-[#3323]">Add Task</button>
-            <button className="px-6 py-2.5 rounded-md bg-slate-500 text-white font-bold hover:bg-[#000c]">Cancel</button>
+            <button onClick={formik.handleSubmit} className={loading?"px-6 py-2.5 rounded-md bg-[#1c59ba] text-white font-bold hover:bg-[#3323] opacity-[0.5]":"px-6 py-2.5 rounded-md bg-[#1c59ba] text-white font-bold hover:bg-[#3323]"}>{param?"Update Task":"Add Task"}</button>
+            <button onClick={()=>window.history.back()} className="px-6 py-2.5 rounded-md bg-slate-500 text-white font-bold hover:bg-[#000c]">Cancel</button>
         </div>
       </div>
     </div>
