@@ -1,6 +1,7 @@
 import axios from "axios"
 
-const API_BASE_URL="http://localhost:4500" //loaclhost-url
+// const API_BASE_URL="http://localhost:4500" //loaclhost-url
+const API_BASE_URL="https://crud-task-r9mr56pr5-faisalit86.vercel.app" //deployed-url
 
 const signup=async(data)=>{
  return await axios.post(API_BASE_URL+"/api/user/signup",data)
