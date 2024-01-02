@@ -39,6 +39,13 @@ const updateTask=async(id,data)=>{
     return await axios.post(API_BASE_URL+"/api/task/update/"+id, data,{headers:headers})
 }
 
+const deleteTask=async(id)=>{
+    const token=localStorage.getItem("token")
+    const headers={
+        "x-access-token":token
+    }
+    return await axios.delete(API_BASE_URL+"/api/task/delete/"+id,{headers:headers})
+}
 export{
 signup,
 login,
@@ -46,4 +53,5 @@ addTask,
 getTasks,
 getOneTask,
 updateTask,
+deleteTask
 }

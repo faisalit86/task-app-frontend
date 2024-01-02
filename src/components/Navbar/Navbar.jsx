@@ -3,6 +3,8 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { MdLogin } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate,Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 
 export default function Navbar() {
@@ -12,9 +14,22 @@ export default function Navbar() {
     const navigate=useNavigate()
     const token=localStorage.getItem("token")
     const handelLogout=()=>{
-        localStorage.removeItem("token")
-        window.location.reload()
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Logout!',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire('Logout', 'Your account has been logout', 'success');
+              localStorage.removeItem("token")
+        // window.location.reload()
         navigate("/login")
+            }
+          });
     }
     
   return (

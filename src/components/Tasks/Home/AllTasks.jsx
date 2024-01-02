@@ -1,26 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { getTasks } from "../../../genericService";
+import { deleteTask, getTasks } from "../../../genericService";
 import loader from "../../../assets/loader.gif";
 import { MdOutlineDelete } from "react-icons/md";
 import { GoPencil } from "react-icons/go";
+import toast from "react-hot-toast";
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 export default function AllTasks() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
-  const [search,setSearch]=useState("");   
-
+  const [search,setSearch]=useState("");  
   const handelSearch=(e)=>{
     const value=e.target.value
     setSearch(value)
-    // if(value){
-    //     setTasks(tasks.filter((task)=>task.title.toLowerCase().includes(value)))
-    // }else{
-    //     setTasks(tasks)
-
-    // }
+  }
+  const actionDeleteTask=async(id)=>{
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this data!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        setLoading(!loading)
+    await deleteTask(id).then((res)=>{
+      return res.data
+    }).then((data)=>{
+      if(data.status){
+        toast.success(data.message)
+        Swal.fire('Deleted!', 'Your data has been deleted.', 'success');
+      }
+    }).catch((err)=>{
+      toast.error("Error in deletion")
+    })
+      }
+    });
   }
 
   useEffect(() => {
@@ -41,10 +63,10 @@ export default function AllTasks() {
         console.log("err", err.message);
       })
       .finally(() => setLoading(false));
-  }, [search]);
+  }, [search,loading]);
   return (
-    <div className="container mx-auto mt-5">
-      <div className="flex justify-between ">
+    <div className="container mx-auto mt-5 ">
+      <div className="flex justify-between mx-2 sm:mx-2 md:mx-0 lg:mx-0 ">
         <div className="relative w-[300px]">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
@@ -89,11 +111,11 @@ export default function AllTasks() {
             <img src={loader} />
           </div>
         ) : tasks.length > 0 ? (
-          <div class="relative overflow-x-auto mt-3">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <div className="relative overflow-x-auto mt-3 mx-2 sm:mx-2 md:mx-0 lg:mx-0">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                  <th scope="col" class="px-6 py-3">
+                  <th scope="col" className="px-6 py-3">
                     Title
                   </th>
                   <th scope="col" class="px-6 py-3">
@@ -120,7 +142,7 @@ export default function AllTasks() {
                     <td class="px-6 py-4">{task.description}</td>
                     <td class="px-6 py-4">{task.due_date}</td>
                     <td class="px-6 py-4">
-                      {task.status.toLowerCase() == "active" ? (
+                      {task.status.toLowerCase() == "completed" ? (
                         <span className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
                           {task.status}
                         </span>
@@ -134,7 +156,7 @@ export default function AllTasks() {
                       <button>
                         <GoPencil onClick={()=>navigate(`/edit-task/${task._id}`)} size={25} color="#1c59ba" />{" "}
                       </button>
-                      <button>
+                      <button onClick={()=>actionDeleteTask(task?._id)}>
                         <MdOutlineDelete size={25} color="#D63301" />{" "}
                       </button>
                     </td>
