@@ -67,7 +67,7 @@ export default function AllTasks() {
   return (
     <div className="container mx-auto mt-5 ">
       <div className="flex justify-between mx-2 sm:mx-2 md:mx-0 lg:mx-0 ">
-        <div className="relative w-[300px]">
+        <div className="relative w-[240px] sm:w-[240px] md:w-[300px] lg:w-[300px]">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
               className="w-4 h-4 text-gray-500 dark:text-gray-400"
