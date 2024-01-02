@@ -62,14 +62,14 @@ export default function Login() {
                 </div>
         </div>
         <div className="flex flex-col">
-          <label className="font-bold">Email</label>
+          <label className="font-semibold text-[17px] ">Email</label>
           <input type="text" className="border border-1 p-3 rounded" {...formik.getFieldProps("email")} />
             {formik.errors&&formik.touched.email?<div className="text-[#D63301]">{formik.errors.email}</div>:""}
         
         </div>
         
         <div className="flex flex-col relative">
-          <label className="font-bold">Password</label>
+          <label className="font-semibold text-[17px]">Password</label>
           <div className="relative">
             <input
               type={isVisible?"text":"password"}

@@ -84,7 +84,7 @@ export default function AddEditTask() {
       <div className="flex justify-center flex-col items-center border mt-4 mx-auto">
         <h2 className="font-bold text-lg self-baseline mx-5 underline mt-3">{param?"Edit":"Create"} Task</h2>
         <div className="flex flex-row gap-3  w-full my-5">
-          <label className="font-semibold text-[17px] basis-[14%] sm:basis-[14%] md:basis-[6%] lg:basis-[6%] mx-5">
+          <label className="font-semibold text-[17px] basis-[21%] sm:basis-[21%] md:basis-[7%] lg:basis-[7%] mx-5">
             Title
           </label>
           <div className="basis-[75%] sm:basis-[75%] md:basis-[50%] lg:basis-[50%]"> 
@@ -98,7 +98,7 @@ export default function AddEditTask() {
           </div>
         </div>
         <div className="flex flex-row gap-3 w-full my-5">
-          <label className="font-semibold text-[17px] basis-[14%] sm:basis-[14%] md:basis-[6%] lg:basis-[6%] mx-5">
+          <label className="font-semibold text-[17px] basis-[21%] sm:basis-[21%] md:basis-[7%] lg:basis-[7%] mx-5">
             Description
           </label>
           <div className="basis-[75%] sm:basis-[75%] md:basis-[50%] lg:basis-[50%]">
@@ -115,7 +115,7 @@ export default function AddEditTask() {
           
         </div>
         <div className="flex flex-row gap-3 items-baseline w-full my-5">
-          <label className="font-semibold text-[17px] basis-[14%] sm:basis-[14%] md:basis-[6%] lg:basis-[6%] mx-5">
+          <label className="font-semibold text-[17px] basis-[21%] sm:basis-[21%] md:basis-[7%] lg:basis-[7%] mx-5">
             Due Date
           </label>
           <div className=" basis-[75%] sm:basis-[75%] md:basis-[50%] lg:basis-[50%]">
@@ -129,7 +129,7 @@ export default function AddEditTask() {
         </div>
         </div>
         <div className="flex flex-row gap-3 w-full my-5">
-          <label className="font-semibold text-[17px] basis-[14%] sm:basis-[14%] md:basis-[6%] lg:basis-[6%] mx-5">
+          <label className="font-semibold text-[17px] basis-[21%] sm:basis-[21%] md:basis-[7%] lg:basis-[7%] mx-5">
             Status
           </label>
           <div className="basis-[50%]">
