@@ -8,6 +8,7 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom"
 import { signup } from "../../genericService";
+import loader from "../../assets/loader.gif";
 const schema = yup.object().shape({
   first_name: yup
     .string()
@@ -69,9 +70,9 @@ export default function Signup() {
 
       <div className="flex justify-center items-center h-50 ">
         {
-          // loading?
-          // <img  src={loader.src} />
-          // :
+          loading?
+          <img  src={loader} />
+          :
           <div className="flex flex-col gap-3 w-full sm:w-full md:w-[50%] mx-5 sm:mx-5 md:mx-0">
             <div className="text-lg font-bold tracking-wider text-center">
               <div className="flex justify-center items-center gap-1 text-[#1c59ba]">

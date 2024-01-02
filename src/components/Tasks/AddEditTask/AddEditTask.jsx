@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const schema = yup.object().shape({
   title: yup.string().min(4, "Title must be at least 4 characters").required("Title is required"),
-  description: yup.string().min(4, "Last name must be at least 4 characters").required("Description is required"),
+  description: yup.string().min(4, "Description must be at least 4 characters").required("Description is required"),
   status: yup.string().required("Please select status"),
   due_date:yup.string().required("Due date is required"),
  

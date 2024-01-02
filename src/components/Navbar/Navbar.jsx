@@ -42,11 +42,11 @@ export default function Navbar() {
                 {
                     token?
                     
-                    <button onClick={handelLogout} className="flex gap-1 items-centr justify-center hover:text-[#4287f5] focus:outline-none"><span><MdLogin size={25} /></span> <span className="text-[17px] font-semibold">Logout</span></button>
+                    <button onClick={handelLogout} className="flex gap-1 items-centr justify-center hover:text-[#4287f5] focus:outline-none"><span className="relative top-[2px]"><MdLogin size={25} /></span> <span className="text-[17px] font-semibold">Logout</span></button>
                 :
                 <>
                 {/* <button onClick={()=>navigate("/signup")} className="flex gap-1 hover:text-[#4287f5] focus:outline-none"><MdOutlineAccountCircle size={25} /> <span className="text-[17px] font-semibold">Sign Up</span></button> */}
-                <button onClick={()=>navigate("/login")} className="flex gap-1 items-centr justify-center hover:text-[#4287f5] focus:outline-none"><span><MdLogin size={25} /></span> <span className="text-[17px] font-semibold">Login</span></button>
+                <button onClick={()=>navigate("/login")} className="flex gap-1 items-centr justify-center hover:text-[#4287f5] focus:outline-none"><span className="relative top-[2px]"><MdLogin size={25} /></span> <span className="text-[17px] font-semibold">Login</span></button>
                 </>
                 }
             </div>
@@ -86,11 +86,11 @@ export default function Navbar() {
                 {
                     token?
                     
-                    <button onClick={handelLogout} className="flex gap-1 items-centr justify-center hover:text-[#4287f5] focus:outline-none"><span><MdLogin size={25} /></span> <span className="text-[17px] font-semibold">Logout</span></button>
+                    <button onClick={handelLogout} className="flex gap-1 items-centr justify-center hover:text-[#4287f5] focus:outline-none"><span className="relative top-[2px]"><MdLogin size={25} /></span> <span className="text-[17px] font-semibold">Logout</span></button>
                 :
                 <>
                 <button onClick={()=>navigate("/signup")} className="flex gap-1 hover:text-[#4287f5] focus:outline-none"><MdOutlineAccountCircle size={25} /> <span className="text-[17px] font-semibold">Sign Up</span></button>
-                <button onClick={()=>navigate("/login")} className="flex gap-1 items-centr justify-center hover:text-[#4287f5] focus:outline-none"><span><MdLogin size={25} /></span> <span className="text-[17px] font-semibold">Login</span></button>
+                <button onClick={()=>navigate("/login")} className="flex gap-1 items-centr justify-center hover:text-[#4287f5] focus:outline-none"><span className="relative top-[2px]"><MdLogin size={25} /></span> <span className="text-[17px] font-semibold">Login</span></button>
                 </>
                 }
             </div>
